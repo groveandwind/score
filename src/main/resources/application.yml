@@ -1,0 +1,11 @@
+name: yourName
+server:
+  port: 8082
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: aliyun_root
+    url: jdbc:mysql://118.126.117.52:3306/test_database
+  profiles:
+    active: dev

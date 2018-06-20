@@ -7,6 +7,14 @@
     <properties resource="application.properties"/>
     <!-- 必须 指定生成一组对象的环境 -->
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--&lt;!&ndash; 生成的pojo，将implements Serializable&ndash;&gt;
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        &lt;!&ndash; 自动生成tostring方法 &ndash;&gt;
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        &lt;!&ndash; 自动生成equals方法和hashcode方法 &ndash;&gt;
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+
         <!--分隔符 -->
         <property name="autoDelimitKeywords" value="true"/>
         <property name="beginningDelimiter" value="`"/>
@@ -16,11 +24,13 @@
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <!-- 此处的 MyMapper注意一定不能被扫描到-->
             <!--//TODO-->
-            <property name="mappers" value="com.demo.utils.MyMapper"/>
+            <property name="mappers" value="lin.app.school.score.mapper.MyMapper"/>
         </plugin>
         <!-- 注释 规则-->
         <commentGenerator>
-            <property name="suppressAllComments" value="false"/>
+            <!-- 设置编码为UTF-8 -->
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
 
@@ -30,15 +40,57 @@
                         password="${spring.datasource.password}">
         </jdbcConnection>
 
+        <!--  默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+              true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
         <javaModelGenerator targetPackage="lin.app.school.score.domain" targetProject="src/main/java"/>
         <sqlMapGenerator targetPackage="sqlmapper.generator"  targetProject="src/main/resources"/>
         <javaClientGenerator targetPackage="lin.app.school.score.dao" targetProject="src/main/java" type="XMLMAPPER" />
 
-        <table tableName="%" >
+        <!--<table tableName="%" >
+            &lt;!&ndash;mysql 配置&ndash;&gt;
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            &lt;!&ndash;oracle 配置&ndash;&gt;
+            &lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;
+        </table>-->
+
+        <table tableName="Class" >
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-            <!--oracle 配置-->
-            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
         </table>
+        <table tableName="Class_info" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="Course" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="Current_Class" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="School" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="Score" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="Student" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="Tea_Cla_Cou" >
+        </table>
+        <table tableName="Teacher" >
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
     </context>
 </generatorConfiguration>
